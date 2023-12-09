@@ -6,7 +6,6 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Burger = ({ ws }) => {
-  //wsHandler
   const [openTab, setOpenTab] = React.useState(false);
   const { setUserEmail, setUserId } = React.useContext(UserContext);
   const navigate = useNavigate();
@@ -26,7 +25,6 @@ const Burger = ({ ws }) => {
       setUserId(null);
       setUserEmail(null);
       ws.close(3333, "logout");
-      //wsHandler();
       navigate("/login");
     } catch (error) {
       console.log(error);

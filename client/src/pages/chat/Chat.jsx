@@ -94,7 +94,7 @@ const Chat = () => {
   };
 
   const connectToWs = () => {
-    const webSocket = new WebSocket("ws://localhost:4441");
+    const webSocket = new WebSocket(import.meta.env.VITE_WS_API_URL);
 
     setWs(webSocket);
 

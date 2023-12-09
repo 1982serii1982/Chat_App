@@ -1,14 +1,11 @@
 import React from "react";
 import axiosM from "../../utils/axiosM.js";
-import { UserContext } from "../../context/UserContext.jsx";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const navigate = useNavigate();
-
-  //const { setUserEmail, setUserId } = React.useContext(UserContext);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -20,9 +17,6 @@ const Register = () => {
           withCredentials: true,
         }
       );
-
-      // setUserEmail(email);
-      // setUserId(data.userId);
       navigate("/");
     } catch (error) {
       console.log(error);
