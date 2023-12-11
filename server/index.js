@@ -187,7 +187,7 @@ wss.on("connection", async (connection, req) => {
           .find((client) => {
             return client.userId === destId;
           })
-          .send(JSON.stringify({ text, sender: connection.userId }));
+          .send(JSON.stringify({ text, sender: connection.userId, fileURL }));
       }
     } catch (error) {
       console.log(error);
