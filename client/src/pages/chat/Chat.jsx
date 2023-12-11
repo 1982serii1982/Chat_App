@@ -41,6 +41,16 @@ const Chat = () => {
 
     if ("all" in messageData) {
       showOnlinePeople(messageData);
+    } else {
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: messageData.text,
+          receiver: userId,
+          sender: messageData.sender,
+          fileURL: messageData.fileURL,
+        },
+      ]);
     }
   };
 
