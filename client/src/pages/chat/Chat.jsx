@@ -261,7 +261,7 @@ const Chat = () => {
                         src={
                           msg.fileURL.split(":")[0] === "blob"
                             ? msg.fileURL
-                            : `http://localhost:4441/${msg.fileURL}`
+                            : `${import.meta.env.VITE_API_URL}${msg.fileURL}`
                         }
                         alt="Image sent"
                       />
