@@ -36,16 +36,17 @@ mongoose.connection.on("connected", () => {
 });
 
 app.use(cookieParser());
+//https://stackoverflow.com/questions/23259168/what-are-express-json-and-express-urlencoded
 app.use(express.json());
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**************************************************************************************************** */
 
 const whitelist = ["http://localhost:5171"];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) === -1) {
+      if (origin && whitelist.indexOf(origin) === -1) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -55,7 +56,7 @@ app.use(
     credentials: true,
   })
 );
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**************************************************************************************************** */
 
 app.use("/getImg", express.static(path.join(__dirname, "uploads")));
 
@@ -64,6 +65,7 @@ app.use("/api/message", messageRoute);
 
 app.use((err, req, res, next) => {
   //About this at https://expressjs.com/en/guide/error-handling.html
+  //https://betterstack.com/community/guides/scaling-nodejs/error-handling-express/
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong";
 
@@ -84,8 +86,8 @@ const server = app.listen(4441, (err) => {
   console.log("Conection success");
   console.log("Server is working!!!");
 });
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////// WEB-SOCKET SERVER ////////////////////////////////////////////////////////////////
+/**************************************************************************************************** */
+/*******************************   WEB-SOCKET SERVER  *********************************************** */
 const wss = new WebSocketServer({ server });
 
 //read useremail and userid from cookie for this connection
