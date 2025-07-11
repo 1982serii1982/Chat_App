@@ -43,6 +43,7 @@ app.use(express.json());
 
 const whitelist = ["http://localhost:5171"];
 
+//https://medium.com/zero-equals-false/using-cors-in-express-cac7e29b005b
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -90,9 +91,53 @@ const server = app.listen(4441, (err) => {
 /*******************************   WEB-SOCKET SERVER  *********************************************** */
 const wss = new WebSocketServer({ server });
 
-//read useremail and userid from cookie for this connection
-wss.on("connection", async (connection, req) => {
+function resetInterval() {}
+
+//notify everyone about connected people
+const notifyAboutOnlinePeople = async () => {
   let allUsers;
+
+  try {
+    allUsers = await UserModel.find().exec();
+  } catch (error) {
+    console.log(error);
+  }
+
+  [...wss.clients].forEach((client) => {
+    client.send(
+      JSON.stringify({
+        online: [...wss.clients].map((c) => {
+          return { userId: c.userId, userEmail: c.userEmail };
+        }),
+        all: allUsers,
+      })
+    );
+  });
+};
+
+let interval = setInterval(() => {
+  [...wss.clients].forEach((client) => {
+    if (client.isAlive === false) return client.terminate();
+
+    client.isAlive = false;
+    client.ping();
+  });
+}, 5000);
+
+//   connection.ping();
+//   connection.timer = setTimeout(() => {
+//     connection.terminate();
+//     notifyAboutOnlinePeople();
+//     resetInterval();
+//     // console.log(
+//     //   `Previous connection with ${connection.userEmail} terminated`
+//     // );
+//   }, 1500);
+// }, 5000);
+
+//read useremail and userid from cookie for this connection
+wss.on("connection", (connection, req) => {
+  connection.isAlive = true;
   const cookie = req.headers.cookie;
 
   if (cookie) {
@@ -106,49 +151,9 @@ wss.on("connection", async (connection, req) => {
     }
   }
 
-  //console.log(`User ${connection.userEmail} connected`);
-
-  //notify everyone about connected people
-  const notifyAboutOnlinePeople = () => {
-    [...wss.clients].forEach((client) => {
-      client.send(
-        JSON.stringify({
-          online: [...wss.clients].map((c) => {
-            return { userId: c.userId, userEmail: c.userEmail };
-          }),
-          all: allUsers,
-        })
-      );
-    });
-  };
-
-  const resetInterval = () => {
-    clearInterval(connection.interval);
-  };
-
-  connection.interval = setInterval(() => {
-    //console.log(`Ping sent to ${connection.userEmail}`);
-    connection.ping();
-    connection.timer = setTimeout(() => {
-      connection.terminate();
-      notifyAboutOnlinePeople();
-      resetInterval();
-      // console.log(
-      //   `Previous connection with ${connection.userEmail} terminated`
-      // );
-    }, 1500);
-  }, 5000);
-
   connection.on("pong", () => {
-    //console.log(`Pong received from ${connection.userEmail}`);
-    clearTimeout(connection.timer);
+    connection.isAlive = true;
   });
-
-  try {
-    allUsers = await UserModel.find().exec();
-  } catch (error) {
-    console.log(error);
-  }
 
   connection.on("message", async (message) => {
     try {
@@ -207,4 +212,8 @@ wss.on("connection", async (connection, req) => {
   });
 
   notifyAboutOnlinePeople();
+});
+
+wss.on("close", () => {
+  clearInterval(interval);
 });

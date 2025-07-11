@@ -30,7 +30,10 @@ const Login = () => {
         await axiosM.get(url, { withCredentials: true });
         navigate("/");
       } catch (error) {
-        console.log(error);
+        console.log(`Message: >> ${error.response.data.message}`);
+        console.log(`Stack: >> ${error.response.data.stack}`);
+        console.log(`Status: >> ${error.response.data.status}`);
+        console.log(`Success: >> ${error.response.data.success}`);
       }
     };
 

@@ -12,14 +12,8 @@ export const checkToken = (req, res, next) => {
       next();
     } catch (err) {
       return next(createError(403, "Forbidden access"));
-      // return res.status(403).json({
-      //   err,
-      // });
     }
   } else {
-    // return res.status(403).json({
-    //   message: "token missing",
-    // });
     return next(createError(403, "Forbidden access"));
   }
 };
