@@ -1,0 +1,59 @@
+[33mcommit 1176b319c12dba3f93a89533e040fa1ecfff7390[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Fri Jul 11 08:04:43 2025 +0100
+
+    made some refactoring
+
+[33mcommit 65b2100b7b1521946375c0c07acc8744c09b42d9[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Thu Jul 10 16:43:14 2025 +0100
+
+    before doing some changing in index.js file
+
+[33mcommit 000471b3b61af55699a33ad314c8951745836be3[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Mon Dec 11 05:44:34 2023 +0000
+
+    modified #2 Chat file
+
+[33mcommit ff6b764371d5245471102cdf193a919f479b9bb9[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Mon Dec 11 05:22:23 2023 +0000
+
+    modified index.js in server , to receive transmitted files
+
+[33mcommit f611636fb28f0d00059a3a98dfe9a9d88c4e9c96[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Mon Dec 11 05:01:19 2023 +0000
+
+    modified Chat file
+
+[33mcommit 6673d324ce2236c48588e48121bef7463ffd424d[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Sat Dec 9 15:14:28 2023 +0000
+
+    added .env to client
+
+[33mcommit 75a4dee2962d2295cf8fcad55e32b9ba460e7179[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Thu Dec 7 14:04:48 2023 +0000
+
+    created server side ,created client side, connected between them
+
+[33mcommit e167524adf22fefbc2e6d004e4da81e8e2c630fe[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Tue Nov 28 13:09:08 2023 +0000
+
+    created server side client side begining
+
+[33mcommit 30fe27083c4aa1f7839baa1c12b73b5d1caa347f[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Tue Nov 28 09:26:19 2023 +0000
+
+    created client vite react app
+
+[33mcommit fa2581d53ea355b5bd86713ad78e93b95db702bc[m
+Author: Sergiu <1982serii1982@gmail.com>
+Date:   Tue Nov 28 03:10:54 2023 +0000
+
+    root commit

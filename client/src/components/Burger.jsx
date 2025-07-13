@@ -2,7 +2,7 @@ import React from "react";
 import axiosM from "./../utils/axiosM";
 
 import { useOutsideClick } from "../hooks/useOutsideClick";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/UserContextProvider";
 import { useNavigate } from "react-router-dom";
 
 const Burger = ({ ws }) => {

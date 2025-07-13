@@ -91,8 +91,6 @@ const server = app.listen(4441, (err) => {
 /*******************************   WEB-SOCKET SERVER  *********************************************** */
 const wss = new WebSocketServer({ server });
 
-function resetInterval() {}
-
 //notify everyone about connected people
 const notifyAboutOnlinePeople = async () => {
   let allUsers;
@@ -124,19 +122,10 @@ let interval = setInterval(() => {
   });
 }, 5000);
 
-//   connection.ping();
-//   connection.timer = setTimeout(() => {
-//     connection.terminate();
-//     notifyAboutOnlinePeople();
-//     resetInterval();
-//     // console.log(
-//     //   `Previous connection with ${connection.userEmail} terminated`
-//     // );
-//   }, 1500);
-// }, 5000);
-
 //read useremail and userid from cookie for this connection
 wss.on("connection", (connection, req) => {
+  console.log("Client connected");
+
   connection.isAlive = true;
   const cookie = req.headers.cookie;
 

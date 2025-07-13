@@ -4,6 +4,8 @@ import { createError } from "./error.js";
 
 export const checkToken = (req, res, next) => {
   const token = req.cookies.access_token;
+  console.log(req.cookies);
+  console.log(req.headers.cookie);
 
   if (token) {
     try {

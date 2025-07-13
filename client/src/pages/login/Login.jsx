@@ -1,10 +1,17 @@
 import React from "react";
 import axiosM from "../../utils/axiosM.js";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import Chat from "../chat/Chat.jsx";
 
 const Login = () => {
+  console.log("Login component");
+  const location = useLocation();
+
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+  const reference = location.state?.ref ?? "notdefined";
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [auth, setAuth] = React.useState(false);
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
@@ -18,13 +25,14 @@ const Login = () => {
         }
       );
 
-      navigate("/");
+      setAuth(true);
     } catch (error) {
       console.log(error);
     }
   };
 
   React.useEffect(() => {
+    console.log("Inside Login useEffect");
     const checkAuth = async (url) => {
       try {
         await axiosM.get(url, { withCredentials: true });
@@ -37,10 +45,14 @@ const Login = () => {
       }
     };
 
-    checkAuth("api/auth/getMe");
+    if (reference === "notdefined") {
+      checkAuth("api/auth/getMe");
+    }
   }, []);
 
-  return (
+  return auth ? (
+    <Chat />
+  ) : (
     <div className="bg-blue-50 h-screen  flex items-center flex-col justify-center">
       <form className="w-64 mx-auto" onSubmit={submitHandler}>
         <input
